@@ -29,9 +29,17 @@ if [[ "$1" = "--debug" ]]; then
     shift
 fi
 
-sshconfigfile=$1
-hostname=$2
-jsonfile=$3
+if [[ "$1" = "--help" || "$1" = "-h" ]]; then
+    usage
+    exit 1
+fi
+
+subcommand=$1
+
+sshconfigfile=$2
+hostname=$3
+jsonfile=$4
+
 
 cook () {
     # generate solo.rb
@@ -61,4 +69,4 @@ EOF
     ssh -F $sshconfigfile $hostname 'sudo chef-solo -c ~/bashsolo/solo.rb -j ~/bashsolo/dna.json -N vagrant-dqneo -o hello'
 }
 
-cook
+$subcommand
