@@ -17,8 +17,9 @@ sshconfigfile=$1
 hostname=$2
 jsonfile=$3
 
-# generate solo.rb
-cat <<EOF > solo.rb
+cook () {
+    # generate solo.rb
+    cat <<EOF > solo.rb
 base = File.expand_path('..', __FILE__)
 
 nodes_path                File.join(base, 'nodes')
@@ -34,11 +35,14 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-cp $jsonfile dna.json
+    cp $jsonfile dna.json
 
 
-# rsync
-rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :~/bashsolo/
+    # rsync
+    rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :~/bashsolo/
 
-# cook
-ssh -F $sshconfigfile $hostname 'sudo chef-solo -c ~/bashsolo/solo.rb -j ~/bashsolo/dna.json -N vagrant-dqneo -o hello'
+    # cook
+    ssh -F $sshconfigfile $hostname 'sudo chef-solo -c ~/bashsolo/solo.rb -j ~/bashsolo/dna.json -N vagrant-dqneo -o hello'
+}
+
+cook
