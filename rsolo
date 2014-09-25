@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+set -u
+#set -x
+
+rsync_verbose=""
+
+if [ "$1" = "--debug"] ; then
+    set -x
+    IS_DEBUG=1
+    rsync_verbose="v"
+    shift
+fi
+
+sshconfigfile=$1
+hostname=$2
+jsonfile=$3
+
+# generate solo.rb
+cat <<EOF > solo.rb
+base = File.expand_path('..', __FILE__)
+
+nodes_path                File.join(base, 'nodes')
+role_path                 File.join(base, 'roles')
+data_bag_path             File.join(base, 'data_bags')
+encrypted_data_bag_secret File.join(base, 'data_bag_key')
+environment_path          File.join(base, 'environments')
+ssl_verify_mode           :verify_peer
+
+cookbook_path []
+cookbook_path << File.join(base, 'site-cookbooks')
+cookbook_path << File.join(base, 'cookbooks')
+
+EOF
+
+cp $jsonfile dna.json
+
+
+# rsync
+rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :~/bashsolo/
+
+# cook
+ssh -F $sshconfigfile $hostname 'sudo chef-solo -c ~/bashsolo/solo.rb -j ~/bashsolo/dna.json -N vagrant-dqneo -o hello'
