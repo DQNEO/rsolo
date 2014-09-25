@@ -5,15 +5,16 @@ set -u
 #set -x
 
 rsync_verbose=""
+readonly PROG="rsolo"
 
 usage () {
     cat  <<EOF
-** rsolo subcommands **
-rsolo bootstrap [USER@]HOSTNAME [JSON] (options)
-rsolo prepare   [USER@]HOSTNAME [JSON] (options)
-rsolo cook      [USER@]HOSTNAME [JSON] (options)
-rsolo clean     [USER@]HOSTNAME
-rsolo init      DIRECTORY
+** $PROG subcommands **
+$PROG bootstrap [USER@]HOSTNAME [JSON] (options)
+$PROG prepare   [USER@]HOSTNAME [JSON] (options)
+$PROG cook      [USER@]HOSTNAME [JSON] (options)
+$PROG clean     [USER@]HOSTNAME
+$PROG init      DIRECTORY
 EOF
 }
 
