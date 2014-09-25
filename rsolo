@@ -6,6 +6,22 @@ set -u
 
 rsync_verbose=""
 
+usage () {
+    cat  <<EOF
+** rsolo subcommands **
+rsolo bootstrap [USER@]HOSTNAME [JSON] (options)
+rsolo prepare   [USER@]HOSTNAME [JSON] (options)
+rsolo cook      [USER@]HOSTNAME [JSON] (options)
+rsolo clean     [USER@]HOSTNAME
+rsolo init      DIRECTORY
+EOF
+}
+
+if [ $# -lt 1 ]; then
+    usage
+    exit 1
+fi
+
 if [ "$1" = "--debug"] ; then
     set -x
     IS_DEBUG=1
