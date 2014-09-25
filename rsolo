@@ -43,6 +43,9 @@ jsonfile=$4
 
 
 cook () {
+
+    local remote_dir='~/'${PROG}
+
     # generate solo.rb
     cat <<EOF > solo.rb
 base = File.expand_path('..', __FILE__)
@@ -64,10 +67,10 @@ EOF
 
 
     # rsync
-    rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :~/bashsolo/
+    rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
 
     # cook
-    ssh -F $sshconfigfile $hostname 'sudo chef-solo -c ~/bashsolo/solo.rb -j ~/bashsolo/dna.json -N vagrant-dqneo -o hello'
+    ssh -F $sshconfigfile $hostname "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json -N vagrant-dqneo -o hello"
 }
 
 $subcommand
