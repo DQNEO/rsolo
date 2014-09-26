@@ -19,6 +19,14 @@ knife-solo is a great tool, but it requires `ruby`, `gem`, and `knife`
 
 rsolo is a zero dependency tool. It's just a BASH script.
 
+## Requirements
+
+Bash version 3.2 or later
+
+## Installation
+
+TBD
+
 ## Motivation
 
 gem `knife-solo` is a great tool, but I don't want to care about ruby tools like gem, bunlder.
@@ -35,14 +43,6 @@ Instead, I'd like to do this:
 ```shell
 bashsolo cook -F tmpconfig -N nodename hostname
 ```
-
-## Requirements
-
-Bash version 3.2 or later
-
-## Installation
-
-TBD
 
 ## License
 
