@@ -68,9 +68,7 @@ do
                 exit 1
             fi
             ssh_options="$ssh_options -F $2"
-            echo ssh_options : $ssh_options
             shift 2
-            echo \$1 : $1
             ;;
         -*)
             echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
