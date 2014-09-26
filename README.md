@@ -10,7 +10,7 @@ rsolo SUBCOMMAND [OPTIONS] ARGS
 
 ### rsolo prepare
 
-install Chef on the remote host by the omnibus installer.
+install Chef on the remote host by [the omnibus installer](https://docs.getchef.com/install_omnibus.html).
 
 ### rsolo cook
 
