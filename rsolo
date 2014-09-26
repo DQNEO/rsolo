@@ -87,6 +87,14 @@ do
             ssh_options="$ssh_options -p $2"
             shift 2
             ;;
+        '-N')
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            node_name=$2
+            shift 2
+            ;;
         '-b'|'--long-b' )
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 shift
@@ -123,10 +131,31 @@ if [ -z $param ]; then
 fi
 
 cmd_cook() {
-    hostname=${param[0]}
     set -x
-    cmd='sudo echo cook'
-    ssh $ssh_options $hostname $cmd
+    hostname=${param[0]}
+    ssh_cmd="ssh $ssh_options $hostname"
+
+    # generate solo.rb
+    cat <<EOF > solo.rb
+base = File.expand_path('..', __FILE__)
+
+nodes_path                File.join(base, 'nodes')
+role_path                 File.join(base, 'roles')
+data_bag_path             File.join(base, 'data_bags')
+encrypted_data_bag_secret File.join(base, 'data_bag_key')
+environment_path          File.join(base, 'environments')
+ssl_verify_mode           :verify_peer
+
+cookbook_path []
+cookbook_path << File.join(base, 'site-cookbooks')
+cookbook_path << File.join(base, 'cookbooks')
+
+EOF
+
+    sync
+    cat solo.rb | $ssh_cmd "cat > $remote_dir/solo.rb"
+    cat nodes/${node_name}.json | $ssh_cmd "cat > $remote_dir/dna.json"
+    $ssh_cmd "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json -o hello"
 }
 
 cmd_prepare() {
@@ -134,6 +163,15 @@ cmd_prepare() {
     set -x
     cmd='sudo echo prepare'
     ssh $ssh_options $hostname $cmd
+}
+
+sync() {
+    # rsync
+    rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
+}
+
+clean() {
+    $ssh_cmd "sudo rm -rf $remote_dir"
 }
 
 cmd_${subcmd}
