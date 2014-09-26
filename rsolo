@@ -190,7 +190,7 @@ _setup_ssh() {
         exit 1
     fi
 
-    ssh_cmd="ssh $ssh_options $hostname"
+    ssh_cmd="ssh -t $ssh_options $hostname"
 }
 
 _rm_ssh_tmpconfig() {
