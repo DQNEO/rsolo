@@ -37,13 +37,59 @@ if [[ "$1" = "--help" || "$1" = "-h" ]]; then
 fi
 
 subcommand=$1
+shift
+ssh_options=""
+VERSION="0.0.1"
 
-sshconfigfile=$2
-hostname=$3
-jsonfile=$4
+# http://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb#2-2
+for OPT in "$@"
+do
+    echo OPT : $OPT
+    echo \$1 : $1
+    case "$OPT" in
+        '-h'|'--help' )
+            usage
+            exit 1
+            ;;
+        '--version' )
+            echo $VERSION
+            exit 1
+            ;;
+        '-F' )
+            ssh_options="$ssh_options -F $2"
+            echo ssh_options : $ssh_options
+            shift 2
+            echo \$1 : $1
+            ;;
+        -*)
+            echo "$PROGNAME: illegal option -- '$(echo $1 | sed 's/^-*//')'" 1>&2
+            exit 1
+            ;;
+        *)
+            if [[ ! -z "$1" ]] && [[ ! "$1" =~ ^-+ ]]; then
+                #param=( ${param[@]} "$1" )
+                param+=( "$1" )
+                shift 1
+            fi
+            ;;
+    esac
+done
+
+# show usage when no args
+#
+#if [ -z $param ]; then
+#    usage
+#    exit 1
+#fi
+
+echo ssh_options = $ssh_options
+hostname=${param[1]}
+
+echo hostname = $hostname
+#jsonfile=$4
 
 remote_dir='~/'${PROG}
-ssh_cmd="ssh -F $sshconfigfile $hostname"
+ssh_cmd="ssh $ssh_options $hostname"
 
 cook () {
 
@@ -79,5 +125,8 @@ sync() {
 clean() {
     $ssh_cmd "sudo rm -rf $remote_dir"
 }
+
+echo ssh_cmd $ssh_cmd
+exit
 
 $subcommand
