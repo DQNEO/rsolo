@@ -62,10 +62,6 @@ do
             usage_cmd_${subcmd}
             exit 1
             ;;
-        '--version' )
-            echo $VERSION
-            exit 1
-            ;;
         '-F' )
             ssh_options="$ssh_options -F $2"
             echo ssh_options : $ssh_options
