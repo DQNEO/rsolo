@@ -25,7 +25,7 @@ rsolo prepare user@hostname
 rsolo cook user@hostname
 ```
 
-## Coordination with Vagrant
+## Coordination with Vagrant (experimental)
 
 If You has a node json file `nodes/vagrant.json`, you can just do
 
@@ -34,7 +34,7 @@ rsolo prepare --vagrant
 rsolo cook --vagrant
 ```
 
-Or if you want to use other json file (e.g. nodes/foo.json )
+Or if you want to use another json file (e.g. nodes/foo.json )
 
 ```
 rsolo prepare --vagrant -N foo
