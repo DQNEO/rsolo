@@ -29,6 +29,15 @@ install Chef on the remote host by [the omnibus installer](https://docs.getchef.
 
 upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-solo` over there.
 
+### rsolo revendor
+
+just do this when you have installed Berkshelf
+
+``shell
+$ rm -rf cookbooks Berksfile.lock
+$ berks vendor cookbooks
+```
+
 ## Coordination with Vagrant (experimental)
 
 If You has a node json file `nodes/vagrant.json`, you can just do
