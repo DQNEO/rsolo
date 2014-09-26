@@ -36,8 +36,25 @@ EOF
 
 usage_cmd_cook() {
     cat  <<EOF
-Usage: $PROG cook [OPTIONS] [ARGS]
+Usage: $PROG cook [OPTIONS] [USER@]HOSTNAME
+    -N, --node-name NAME             The Chef node name for your new node
+    -i, --identity-file FILE         The ssh identity file
+    -F CONFIG_FILE,                  Alternate location for ssh config file
+        --ssh-config-file
+    -p, --ssh-port PORT              The ssh port
+    -W, --why-run                    Enable whyrun mode
+    -h, --help                       Show this message
+
+
 EOF
+
+# TODO
+#    -E, --environment ENVIRONMENT    The Chef environment for your node
+#        --format FORMAT              Which format to use for output
+#    -o RunlistItem,RunlistItem...,,  Replace current run list with specified items
+#        --override-runlist
+#    -r, --run-list RUN_LIST          Comma separated list of roles/recipes to put to node config (if it does not exist)
+#    -V, --verbose                    More verbose output. Use twice for max verbosity
 }
 
 if [[ $# -eq 0 ]]; then
