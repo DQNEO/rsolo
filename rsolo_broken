@@ -20,6 +20,18 @@ $PROG init      DIRECTORY
 EOF
 }
 
+usage_cmd_foo() {
+    cat  <<EOF
+Usage: $PROG foo [OPTIONS] [ARGS]
+EOF
+}
+
+usage_cmd_bar() {
+    cat  <<EOF
+Usage: $PROG bar [OPTIONS] [ARGS]
+EOF
+}
+
 if [[ $# -eq 0 ]]; then
     usage
     exit 1
