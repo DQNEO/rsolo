@@ -42,10 +42,10 @@ sshconfigfile=$2
 hostname=$3
 jsonfile=$4
 
+remote_dir='~/'${PROG}
 
 cook () {
 
-    local remote_dir='~/'${PROG}
 
     # generate solo.rb
     cat <<EOF > solo.rb
