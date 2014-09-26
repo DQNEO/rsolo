@@ -2,8 +2,8 @@
 
 set -e
 
+PROG=$(basename $0)
 rsync_verbose=""
-PROG="rsolo"
 
 usage () {
     cat  <<EOF
