@@ -19,6 +19,8 @@ Usage: $PROG [--version] [--help] <command> [options] [args]
 Subcommands are:
     $PROG prepare   [options] [user@]hostname
     $PROG cook      [options] [user@]hostname
+
+'$PROG <command> --help' shows help about a specific subcommand
 EOF
 }
 
