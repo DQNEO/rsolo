@@ -162,7 +162,7 @@ do
 done
 
 # show usage when no args
-if [[ -z $param && ! "$vagrant_mode" ]]; then
+if [[ -z $param && ! "$vagrant_mode"  && $subcmd != "revendor" ]]; then
     usage_cmd_${subcmd}
     exit 1
 fi
@@ -267,6 +267,17 @@ _clean() {
 cmd_clean() {
     _setup_ssh
     _clean
+}
+
+cmd_revendor() {
+
+    if ! type berks 1>/dev/null 2>&1 ; then
+        echo "Berkshelf is not installed" >&2
+        exit 1
+    fi
+
+    rm -rf cookbooks Berksfile.lock
+    berks vendor cookbooks
 }
 
 cmd_${subcmd}
