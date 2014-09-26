@@ -271,6 +271,8 @@ cmd_clean() {
 
 cmd_revendor() {
 
+    # TODO
+    # Do we have to care about "bundle exec berks" ?
     if ! type berks 1>/dev/null 2>&1 ; then
         echo "Berkshelf is not installed" >&2
         exit 1
