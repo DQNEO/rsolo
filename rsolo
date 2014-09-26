@@ -179,6 +179,9 @@ _setup_ssh() {
         jsonfile=nodes/${node_name}.json
     else
         hostname=${param[0]}
+        if [[ ! $node_name ]]; then
+            node_name=${hostname##*@}
+        fi
         jsonfile=nodes/${node_name}.json
     fi
 
