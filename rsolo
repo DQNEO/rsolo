@@ -233,8 +233,13 @@ sync() {
 
 }
 
-cmd_clean() {
+_clean() {
     $ssh_cmd "rm -rf $remote_dir"
+}
+
+cmd_clean() {
+    _setup_ssh
+    _clean
 }
 
 cmd_${subcmd}
