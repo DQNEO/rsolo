@@ -33,7 +33,7 @@ upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-so
 
 just do this when you have installed Berkshelf
 
-``shell
+```shell
 $ rm -rf cookbooks Berksfile.lock
 $ berks vendor cookbooks
 ```
