@@ -234,7 +234,7 @@ sync() {
 }
 
 clean() {
-    $ssh_cmd "sudo rm -rf $remote_dir"
+    $ssh_cmd "rm -rf $remote_dir"
 }
 
 cmd_${subcmd}
