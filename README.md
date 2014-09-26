@@ -31,4 +31,19 @@ Instead, I'd like to do this:
 bashsolo cook -F tmpconfig -N nodename hostname
 ```
 
+## Requirements
+
+Bash version 3.2 or later
+
+## Installation
+
+TBD
+
+## License
+
+GPL v3
+
+## Author
+
+@DQNEO
 
