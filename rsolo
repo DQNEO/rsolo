@@ -17,7 +17,6 @@ $PROG cook      [USER@]HOSTNAME [JSON] (options)
 $PROG clean     [USER@]HOSTNAME
 $PROG init      DIRECTORY
 EOF
-EOF
 }
 
 usage_cmd_foo() {
