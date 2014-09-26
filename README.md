@@ -4,14 +4,22 @@ rsolo is a simple shell-script which does "rsync && sudo chef-solo".
 
 ## Usage
 
-rsolo cook
+```
+rsolo SUBCOMMAND [OPTIONS] ARGS
+```
+
+### rsolo prepare
+
+install Chef on the remote host by the omnibus installer.
 
 ### rsolo cook
 
-rsolo cook does only 2 things.
+upload kitchen(a.ka. chef-repo) to the remote host and run `sudo chef-solo` over there.
 
-* rsync kitchen(a.ka. chef-repo)
-* run chef-solo on remote host
+### rsolo bootstrap
+
+just `rsolo prepare` + `rsolo cook`
+
 
 ## rsolo VS. knife-solo
 
