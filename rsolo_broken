@@ -59,7 +59,7 @@ for OPT in "$@"
 do
     case "$OPT" in
         '-h'|'--help'|'help' )
-            usage
+            usage_cmd_${subcmd}
             exit 1
             ;;
         '--version' )
