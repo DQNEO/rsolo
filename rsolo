@@ -2,6 +2,7 @@
 #
 # rsolo - a bash knife-solo
 #
+set -e
 
 PROG=$(basename $0)
 VERSION="0.0.1"
