@@ -1,34 +1,48 @@
-PROGNAME=$(basename $0)
-VERSION="1.0"
+#!/bin/bash
+# A template of bash command which can handle subcommands
+#
+PROG=$(basename $0)
+VERSION="0.0.1"
 
 usage() {
-    echo "Usage: $PROGNAME [OPTIONS] FILE"
-    echo "  This script is ~."
-    echo
-    echo "Options:"
-    echo "  -h, --help"
-    echo "      --version"
-    echo "  -a, --long-a ARG"
-    echo "  -b, --long-b [ARG]"
-    echo "  -c, --long-c"
-    echo
-    exit 1
+    cat  <<EOF
+Usage: $PROG SUBCOMMAND [OPTIONS] [ARGS]
+EOF
 }
+
+usage_cmd_foo() {
+    cat  <<EOF
+Usage: $PROG foo [OPTIONS] [ARGS]
+EOF
+}
+
+usage_cmd_bar() {
+    cat  <<EOF
+Usage: $PROG bar [OPTIONS] [ARGS]
+EOF
+}
+
+if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+fi
+
+if [[ "$1" = "--help" || "$1" = "-h" ]]; then
+    usage
+    exit 1
+fi
 
 subcmd=$1
 shift
 
 echo "subcmd = " $subcmd
 
+
 for OPT in "$@"
 do
     case "$OPT" in
-        '-h'|'--help' )
-            usage
-            exit 1
-            ;;
-        '--version' )
-            echo $VERSION
+        '-h'|'--help'|'help' )
+            usage_cmd_${subcmd}
             exit 1
             ;;
         '-a'|'--long-a' )
@@ -69,8 +83,7 @@ do
 done
 
 if [ -z $param ]; then
-    echo "$PROGNAME: too few arguments" 1>&2
-    echo "Try '$PROGNAME --help' for more information." 1>&2
+    usage_cmd_${subcmd}
     exit 1
 fi
 
