@@ -57,8 +57,6 @@ ssh_options=""
 # http://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb#2-2
 for OPT in "$@"
 do
-    echo OPT : $OPT
-    echo \$1 : $1
     case "$OPT" in
         '-h'|'--help' )
             usage
