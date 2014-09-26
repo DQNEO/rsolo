@@ -58,7 +58,7 @@ ssh_options=""
 for OPT in "$@"
 do
     case "$OPT" in
-        '-h'|'--help' )
+        '-h'|'--help'|'help' )
             usage
             exit 1
             ;;
