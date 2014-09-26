@@ -20,6 +20,14 @@ upload kitchen(a.ka. chef-repo) to the remote host and run `sudo chef-solo` over
 
 just `rsolo prepare` + `rsolo cook`
 
+## Example
+
+```
+# At first , install Chef on the remote host
+rsolo prepare user@hostname
+# Second, run chef-solo
+rsolo cook user@hostname
+```
 
 ## rsolo VS. knife-solo
 
