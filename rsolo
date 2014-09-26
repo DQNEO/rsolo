@@ -14,7 +14,7 @@ remote_dir='~/'${PROG}
 
 usage() {
     cat  <<EOF
-Usage: $PROG SUBCOMMAND [OPTIONS] [USER@]HOSTNAME
+Usage: $PROG SUBCOMMAND [OPTIONS] [ARGS]
 
 Subcommands are:
     $PROG prepare   [OPTIONS] [USER@]HOSTNAME
