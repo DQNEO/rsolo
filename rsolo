@@ -190,7 +190,9 @@ _setup_ssh() {
         exit 1
     fi
 
-    ssh_cmd="ssh -t $ssh_options $hostname"
+    ssh_cmd="ssh $ssh_options $hostname"
+    ssh_cmd_t="ssh -t $ssh_options $hostname"
+
 }
 
 _rm_ssh_tmpconfig() {
@@ -236,7 +238,7 @@ EOF
     cmd_remote="sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json $options"
     echo "Running Chef: $cmd_remote"
 
-    $ssh_cmd $cmd_remote
+    $ssh_cmd_t $cmd_remote
 
     _rm_ssh_tmpconfig
 }
