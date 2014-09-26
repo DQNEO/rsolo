@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+# rsolo - a bash knife-solo
+#
 set -e
 
 PROG=$(basename $0)
