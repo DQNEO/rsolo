@@ -1,6 +1,6 @@
 # rsolo
 
-rsolo is a simple tool which runs chef-solo on a remote host.
+rsolo is a simple tool which runs `chef-solo` on a remote host.
 
 ## DESCRIPTION
 
