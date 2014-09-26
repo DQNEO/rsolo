@@ -113,6 +113,21 @@ if [ -z $param ]; then
     exit 1
 fi
 
-echo "-a " $ARG_A
-echo "arg1 = "  ${param[0]}
+cmd_cook() {
+    hostname=${param[0]}
+    set -x
+    cmd='sudo echo cook'
+    ssh $ssh_options $hostname $cmd
+}
+
+cmd_prepare() {
+    hostname=${param[0]}
+    set -x
+    cmd='sudo echo prepare'
+    ssh $ssh_options $hostname $cmd
+}
+
+cmd_${subcmd}
+
+#echo "ssh_options:" $ssh_options
 
