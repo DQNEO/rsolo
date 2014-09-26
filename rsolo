@@ -76,6 +76,8 @@ sync() {
     rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
 }
 
+clean() {
+    $ssh_cmd "sudo rm -rf $remote_dir"
 }
 
 $subcommand
