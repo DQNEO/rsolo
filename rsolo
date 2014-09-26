@@ -155,7 +155,7 @@ EOF
     sync
     cat solo.rb | $ssh_cmd "cat > $remote_dir/solo.rb"
     cat nodes/${node_name}.json | $ssh_cmd "cat > $remote_dir/dna.json"
-    $ssh_cmd "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json -o hello"
+    $ssh_cmd "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json"
 }
 
 cmd_prepare() {
