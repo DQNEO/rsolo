@@ -13,6 +13,11 @@ rsolo cook does only 2 things.
 * rsync kitchen(a.ka. chef-repo)
 * run chef-solo on remote host
 
+## rsolo VS. knife-solo
+
+knife-solo is a great tool, but it requires `ruby`, `gem`, and `knife`
+
+rsolo is a zero dependency tool. It's just a BASH script.
 
 ## Motivation
 
