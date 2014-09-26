@@ -85,7 +85,7 @@ $ knife solo cook --no-berkshelf --no-chef-check --ssh-config-file tmpconfig tmp
 Instead, I'd like to do this:
 
 ```shell
-$ bashsolo cook -F tmpconfig -N nodename hostname
+$ rsolo cook -F tmpconfig -N nodename hostname
 ```
 
 ## License
