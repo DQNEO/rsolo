@@ -1,6 +1,6 @@
 # rsolo
 
-rsolo is a simple shell-script which does "rsync && sudo chef-solo".
+rsolo is a simple shell-script which runs chef-solo on remote hosts.
 
 ## Usage
 
