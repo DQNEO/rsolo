@@ -2,6 +2,15 @@
 
 rsolo is a simple, zero-dependent tool which runs chef-solo on a remote host.
 
+## DESCRIPTION
+
+rsolo is a kind of bash implementation of `knife-solo`.
+
+it can do:
+
+* install chef on remote host
+* run chef-solo on remote host
+
 ## Usage
 
 ```
