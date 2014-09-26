@@ -9,6 +9,7 @@ VERSION="0.0.1"
 rsync_verbose=""
 why_run=""
 vagrant_mode=""
+override_runlist=""
 tmp_file="${TMPDIR}rsolovagrantsshconfig.$$"
 remote_dir='~/'${PROG}
 
@@ -47,6 +48,8 @@ Options:
     -p, --ssh-port PORT              The ssh port
     -W, --why-run                    Enable whyrun mode
     -h, --help                       Show this message
+    -o, --override-runlist RunlistItem,RunlistItem...,,
+                                      Replace current run list with specified items
 
 
 EOF
@@ -54,8 +57,6 @@ EOF
 # TODO
 #    -E, --environment ENVIRONMENT    The Chef environment for your node
 #        --format FORMAT              Which format to use for output
-#    -o RunlistItem,RunlistItem...,,  Replace current run list with specified items
-#        --override-runlist
 #    -r, --run-list RUN_LIST          Comma separated list of roles/recipes to put to node config (if it does not exist)
 #    -V, --verbose                    More verbose output. Use twice for max verbosity
 }
@@ -127,12 +128,13 @@ do
             node_name=$2
             shift 2
             ;;
-        '-b'|'--long-b' )
+        '-o'|'--override-runlist')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-                shift
-            else
-                shift 2
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
             fi
+            override_runlist="-o $2"
+            shift 2
             ;;
         '-W'|'--why-run' )
             why_run="-W"
@@ -223,8 +225,8 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-
-    cmd_remote="sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
+    options="$why_run $override_runlist"
+    cmd_remote="sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json $options"
     echo "Running Chef: $cmd_remote"
 
     $ssh_cmd $cmd_remote
