@@ -14,7 +14,8 @@ it can do:
 ## Usage
 
 ```
-rsolo SUBCOMMAND [OPTIONS] ARGS
+rsolo prepare user@remote
+rsolo cook user@remote
 ```
 
 ### rsolo prepare
