@@ -31,7 +31,7 @@ upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-so
 
 ### rsolo revendor
 
-just do this when you have installed Berkshelf
+just do the same thing as below when you have installed Berkshelf
 
 ```shell
 $ rm -rf cookbooks Berksfile.lock
