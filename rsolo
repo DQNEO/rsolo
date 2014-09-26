@@ -45,13 +45,15 @@ run chef-solo on the remote host
 
 Options:
     -N, --node-name NAME             The Chef node name for your new node
+    -W, --why-run                    Enable whyrun mode
+    -o, --override-runlist RunlistItem,RunlistItem...,,
+                                      Replace current run list with specified items
+
     -i, --identity-file FILE         ssh identity file
     -F, --ssh-config-file FILE       ssh config file
     -p, --ssh-port PORT              ssh port
-    -W, --why-run                    Enable whyrun mode
+
     -h, --help                       Show this message
-    -o, --override-runlist RunlistItem,RunlistItem...,,
-                                      Replace current run list with specified items
 
 
 EOF
