@@ -7,6 +7,7 @@ set -e
 PROG=$(basename $0)
 VERSION="0.0.1"
 rsync_verbose=""
+why_run=""
 remote_dir='~/'${PROG}
 
 usage() {
@@ -102,7 +103,8 @@ do
                 shift 2
             fi
             ;;
-        '-c'|'--long-c' )
+        '-W'|'--why-run' )
+            why_run="-W"
             shift 1
             ;;
         '--'|'-' )
@@ -155,7 +157,7 @@ EOF
     sync
     cat solo.rb | $ssh_cmd "cat > $remote_dir/solo.rb"
     cat nodes/${node_name}.json | $ssh_cmd "cat > $remote_dir/dna.json"
-    $ssh_cmd "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json"
+    $ssh_cmd "sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
 }
 
 cmd_prepare() {
