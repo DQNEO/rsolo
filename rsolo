@@ -43,6 +43,7 @@ hostname=$3
 jsonfile=$4
 
 remote_dir='~/'${PROG}
+ssh_cmd="ssh -F $sshconfigfile $hostname"
 
 cook () {
 
@@ -64,14 +65,17 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-    cp $jsonfile dna.json
-
-
-    # rsync
-    rsync -rL $rsync_verbose --rsh="ssh $hostname -F $sshconfigfile" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
+    cat $jsonfile | $ssh_cmd "cat > $remote_dir/dna.json"
 
     # cook
-    ssh -F $sshconfigfile $hostname "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json -N vagrant-dqneo -o hello"
+    $ssh_cmd "sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json -N vagrant-dqneo -o hello"
+}
+
+sync() {
+    # rsync
+    rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
+}
+
 }
 
 $subcommand
