@@ -45,18 +45,6 @@ $ rsolo prepare --vagrant -N foo
 $ rsolo cook --vagrant -N foo
 ```
 
-
-
-## rsolo VS. knife-solo
-
-knife-solo is a great tool, but it requires `ruby`, `gem`, and `knife`
-
-rsolo is a zero dependency tool. It's just a BASH script.
-
-## Requirements
-
-Bash version 3.2 or later
-
 ## Installation
 
 ```shell
@@ -65,9 +53,17 @@ $ chmod  0755 ./rsolo
 # if you would like to install globally
 $ sudo mv rsolo /usr/local/bin/
 ```
-## Motivation
+
+
+## Requirements
+
+Bash version 3.2 or later
+
+## rsolo VS. knife-solo
 
 gem `knife-solo` is a great tool, but I don't want to care about ruby tools like gem, bunlder.
+
+rsolo is a zero dependency tool. It's just a BASH script.
 
 besides, `knife-solo` has too complicated options.
 I am tired of doing lik this:
@@ -76,7 +72,7 @@ I am tired of doing lik this:
 $ knife solo cook --no-berkshelf --no-chef-check --ssh-config-file tmpconfig tmphost nodes/${last_argument}.json
 ```
 
-Instead, I'd like to do this:
+In `rsolo`, you can do this:
 
 ```shell
 $ rsolo cook -F tmpconfig -N nodename hostname
