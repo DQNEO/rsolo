@@ -210,7 +210,7 @@ cmd_cook() {
 
     cat $jsonfile | $ssh_cmd "cat > $remote_dir/dna.json"
 
-    environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[",]//g')
+    environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[", ]//g')
 
     echo "Generating solo config..."
     # generate solo.rb
