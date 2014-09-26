@@ -14,7 +14,7 @@ install Chef on the remote host by [the omnibus installer](https://docs.getchef.
 
 ### rsolo cook
 
-upload kitchen(in other words, chef-repo) to the remote host and run `sudo chef-solo` over there.
+upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-solo` over there.
 
 ## Example
 
