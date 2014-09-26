@@ -8,6 +8,8 @@ PROG=$(basename $0)
 VERSION="0.0.1"
 rsync_verbose=""
 why_run=""
+vagrant_mode=""
+tmp_file="${TMPDIR}rsolovagrantsshconfig.$$"
 remote_dir='~/'${PROG}
 
 usage() {
@@ -114,6 +116,10 @@ do
             why_run="-W"
             shift 1
             ;;
+        '--vagrant' )
+            vagrant_mode=1
+            shift 1
+            ;;
         '--'|'-' )
             shift 1
             param+=( "$@" )
@@ -134,16 +140,37 @@ do
 done
 
 # show usage when no args
-if [ -z $param ]; then
+if [[ -z $param && ! "$vagrant_mode" ]]; then
     usage_cmd_${subcmd}
     exit 1
 fi
 
+_setup_ssh() {
+    if [[ $vagrant_mode ]]; then
+        vagrant ssh-config --host=tmphost > $tmp_file
+        hostname=tmphost
+        ssh_cmd="ssh -F $tmp_file $hostname"
+
+        if [[ ! $node_name ]]; then
+            node_name="vagrant"
+        fi
+
+        jsonfile=nodes/${node_name}.json
+    else
+        hostname=${param[0]}
+        ssh_cmd="ssh $ssh_options $hostname"
+        jsonfile=nodes/${node_name}.json
+    fi
+}
+
+_rm_ssh_tmpconfig() {
+    [[ -e $tmp_file ]] && rm $tmp_file
+}
+
 cmd_cook() {
     set -x
-    hostname=${param[0]}
-    ssh_cmd="ssh $ssh_options $hostname"
-    jsonfile=nodes/${node_name}.json
+
+    _setup_ssh
 
     sync
 
@@ -173,13 +200,17 @@ cookbook_path << File.join(base, 'cookbooks')
 EOF
 
     $ssh_cmd "sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
+
+    _rm_ssh_tmpconfig
 }
 
 cmd_prepare() {
     hostname=${param[0]}
     set -x
-    cmd='sudo echo prepare'
-    ssh $ssh_options $hostname $cmd
+    _setup_ssh
+
+    $ssh_cmd "sudo echo install chef-solo"
+    _rm_ssh_tmpconfig
 }
 
 sync() {
