@@ -37,6 +37,13 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
+if [[ "$1" = "--debug" ]]; then
+    set -x
+    IS_DEBUG=1
+    rsync_verbose="-v"
+    shift
+fi
+
 if [[ "$1" = "--help" || "$1" = "-h" ]]; then
     usage
     exit 1
