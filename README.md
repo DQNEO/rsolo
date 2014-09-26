@@ -14,7 +14,10 @@ rsolo is a shell-script version of `knife-solo`.
 ## Usage
 
 ```
+# At first , install Chef on the remote host
 $ rsolo prepare user@remote
+
+# Second, run chef-solo
 $ rsolo cook user@remote
 ```
 
@@ -25,15 +28,6 @@ install Chef on the remote host by [the omnibus installer](https://docs.getchef.
 ### rsolo cook
 
 upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-solo` over there.
-
-## Example
-
-```
-# At first , install Chef on the remote host
-$ rsolo prepare user@hostname
-# Second, run chef-solo
-$ rsolo cook user@hostname
-```
 
 ## Coordination with Vagrant (experimental)
 
