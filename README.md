@@ -14,8 +14,8 @@ it can do:
 ## Usage
 
 ```
-rsolo prepare user@remote
-rsolo cook user@remote
+$ rsolo prepare user@remote
+$ rsolo cook user@remote
 ```
 
 ### rsolo prepare
@@ -30,9 +30,9 @@ upload kitchen(in other words, chef-repo) to a remote host and run `sudo chef-so
 
 ```
 # At first , install Chef on the remote host
-rsolo prepare user@hostname
+$ rsolo prepare user@hostname
 # Second, run chef-solo
-rsolo cook user@hostname
+$ rsolo cook user@hostname
 ```
 
 ## Coordination with Vagrant (experimental)
@@ -40,15 +40,15 @@ rsolo cook user@hostname
 If You has a node json file `nodes/vagrant.json`, you can just do
 
 ```
-rsolo prepare --vagrant
-rsolo cook --vagrant
+$ rsolo prepare --vagrant
+$ rsolo cook --vagrant
 ```
 
 Or if you want to use another json file (e.g. nodes/foo.json )
 
 ```
-rsolo prepare --vagrant -N foo
-rsolo cook --vagrant -N foo
+$ rsolo prepare --vagrant -N foo
+$ rsolo cook --vagrant -N foo
 ```
 
 
@@ -66,10 +66,10 @@ Bash version 3.2 or later
 ## Installation
 
 ```shell
-curl -sO https://raw.githubusercontent.com/DQNEO/rsolo/master/rsolo
-chmod  0755 ./rsolo
+$ curl -sO https://raw.githubusercontent.com/DQNEO/rsolo/master/rsolo
+$ chmod  0755 ./rsolo
 # if you would like to install globally
-sudo mv rsolo /usr/local/bin/
+$ sudo mv rsolo /usr/local/bin/
 ```
 ## Motivation
 
@@ -79,13 +79,13 @@ besides, `knife-solo` has too complicated options.
 I am tired of doing lik this:
 
 ```shell
-knife solo cook --no-berkshelf --no-chef-check --ssh-config-file tmpconfig tmphost nodes/${last_argument}.json
+$ knife solo cook --no-berkshelf --no-chef-check --ssh-config-file tmpconfig tmphost nodes/${last_argument}.json
 ```
 
 Instead, I'd like to do this:
 
 ```shell
-bashsolo cook -F tmpconfig -N nodename hostname
+$ bashsolo cook -F tmpconfig -N nodename hostname
 ```
 
 ## License
