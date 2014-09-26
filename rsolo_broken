@@ -20,15 +20,15 @@ $PROG init      DIRECTORY
 EOF
 }
 
-usage_cmd_foo() {
+usage_cmd_prepare() {
     cat  <<EOF
-Usage: $PROG foo [OPTIONS] [ARGS]
+Usage: $PROG prepare [OPTIONS] [ARGS]
 EOF
 }
 
-usage_cmd_bar() {
+usage_cmd_cook() {
     cat  <<EOF
-Usage: $PROG bar [OPTIONS] [ARGS]
+Usage: $PROG cook [OPTIONS] [ARGS]
 EOF
 }
 
