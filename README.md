@@ -1,6 +1,6 @@
 # rsolo
 
-implementation of `knife-solo` by bash.
+rsolo is a very simple shell-script which does "rsync && sudo chef-solo".
 
 ## Usage
 
