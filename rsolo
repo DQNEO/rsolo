@@ -1,6 +1,8 @@
 #!/bin/bash
-# A template of bash command which can handle subcommands
 #
+# rsolo - a bash knife-solo
+#
+
 PROG=$(basename $0)
 VERSION="0.0.1"
 
