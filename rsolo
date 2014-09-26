@@ -173,7 +173,6 @@ _rm_ssh_tmpconfig() {
 }
 
 cmd_cook() {
-    set -x
 
     _setup_ssh
 
@@ -211,7 +210,7 @@ EOF
 
 cmd_prepare() {
     hostname=${param[0]}
-    set -x
+
     _setup_ssh
 
     # About the Omnibus Installer
