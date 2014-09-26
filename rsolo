@@ -161,12 +161,6 @@ do
     esac
 done
 
-# show usage when no args
-if [[ -z $param && ! "$vagrant_mode"  && $subcmd != "revendor" ]]; then
-    usage_cmd_${subcmd}
-    exit 1
-fi
-
 _setup_ssh() {
     if [[ $vagrant_mode ]]; then
         vagrant ssh-config --host=tmphost > $tmp_file
@@ -281,6 +275,12 @@ cmd_revendor() {
     rm -rf cookbooks Berksfile.lock
     berks vendor cookbooks
 }
+
+# show usage when no args
+if [[ -z $param && ! "$vagrant_mode"  && $subcmd != "revendor" ]]; then
+    usage_cmd_${subcmd}
+    exit 1
+fi
 
 cmd_${subcmd}
 
