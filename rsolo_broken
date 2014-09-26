@@ -7,6 +7,7 @@ set -e
 PROG=$(basename $0)
 VERSION="0.0.1"
 rsync_verbose=""
+remote_dir='~/'${PROG}
 
 usage() {
     cat  <<EOF
@@ -137,13 +138,8 @@ cmd_prepare() {
 
 cmd_${subcmd}
 
-hostname=${param[1]}
-
-echo hostname = $hostname
 #jsonfile=$4
 
-remote_dir='~/'${PROG}
-ssh_cmd="ssh $ssh_options $hostname"
 
 cook () {
 
