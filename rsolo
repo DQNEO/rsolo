@@ -9,6 +9,7 @@ readonly PROG="rsolo"
 
 usage () {
     cat  <<EOF
+Usage: $PROG SUBCOMMAND [OPTIONS] [ARGS]
 ** $PROG subcommands **
 $PROG bootstrap [USER@]HOSTNAME [JSON] (options)
 $PROG prepare   [USER@]HOSTNAME [JSON] (options)
