@@ -5,7 +5,7 @@ set -u
 #set -x
 
 rsync_verbose=""
-readonly PROG="rsolo"
+PROG="rsolo"
 
 usage () {
     cat  <<EOF
