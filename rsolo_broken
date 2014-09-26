@@ -63,6 +63,10 @@ do
             exit 1
             ;;
         '-F' )
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
+            fi
             ssh_options="$ssh_options -F $2"
             echo ssh_options : $ssh_options
             shift 2
