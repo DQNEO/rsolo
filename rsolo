@@ -22,6 +22,10 @@ $PROG init      DIRECTORY
 EOF
 }
 
+version() {
+    echo "$PROG $VERSION"
+}
+
 usage_cmd_prepare() {
     cat  <<EOF
 Usage: $PROG prepare [OPTIONS] [ARGS]
@@ -49,6 +53,11 @@ fi
 if [[ "$1" = "--help" || "$1" = "-h" ]]; then
     usage
     exit 1
+fi
+
+if [[ "$1" = "--version" || "$1" = "-v" ]]; then
+    version
+    exit
 fi
 
 subcmd=$1
