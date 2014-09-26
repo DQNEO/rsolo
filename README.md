@@ -69,7 +69,7 @@ besides, `knife-solo` has too complicated options.
 I am tired of doing lik this:
 
 ```shell
-$ knife solo cook --no-berkshelf --no-chef-check -F tmpconfig tmphost nodes/${last_argument}.json
+$ knife solo cook --no-berkshelf --no-chef-check -F tmpconfig hostname nodes/hostname.json
 ```
 
 In `rsolo`, you can do this:
