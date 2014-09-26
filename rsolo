@@ -52,8 +52,6 @@ fi
 subcmd=$1
 shift
 
-echo "subcmd = " $subcmd
-
 ssh_options=""
 
 for OPT in "$@"
