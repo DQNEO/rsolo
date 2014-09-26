@@ -43,8 +43,7 @@ run chef-solo on the remote host
 Options:
     -N, --node-name NAME             The Chef node name for your new node
     -i, --identity-file FILE         The ssh identity file
-    -F CONFIG_FILE,                  Alternate location for ssh config file
-        --ssh-config-file
+    -F, --ssh-config-file FILE       ssh config file
     -p, --ssh-port PORT              The ssh port
     -W, --why-run                    Enable whyrun mode
     -h, --help                       Show this message
@@ -96,7 +95,7 @@ do
             usage_cmd_${subcmd}
             exit 1
             ;;
-        '-F')
+        '-F'|'--ssh-config-file')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
@@ -104,7 +103,7 @@ do
             ssh_options="$ssh_options -F $2"
             shift 2
             ;;
-        '-i')
+        '-i'|'--identity-file')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
@@ -112,7 +111,7 @@ do
             ssh_options="$ssh_options -i $2"
             shift 2
             ;;
-        '-p')
+        '-p'|'--ssh-port')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
@@ -120,7 +119,7 @@ do
             ssh_options="$ssh_options -p $2"
             shift 2
             ;;
-        '-N')
+        '-N'|'--node-name')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
