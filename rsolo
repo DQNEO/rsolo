@@ -137,6 +137,7 @@ cmd_cook() {
     hostname=${param[0]}
     ssh_cmd="ssh $ssh_options $hostname"
 
+    sync
     # generate solo.rb
     cat <<EOF > solo.rb
 base = File.expand_path('..', __FILE__)
@@ -154,7 +155,6 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-    sync
     cat solo.rb | $ssh_cmd "cat > $remote_dir/solo.rb"
     cat nodes/${node_name}.json | $ssh_cmd "cat > $remote_dir/dna.json"
     $ssh_cmd "sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
