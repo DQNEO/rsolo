@@ -139,7 +139,10 @@ cmd_cook() {
 
     sync
 
-    cat nodes/${node_name}.json | $ssh_cmd "cat > $remote_dir/dna.json"
+    jsonfile=nodes/${node_name}.json
+    cat $jsonfile | $ssh_cmd "cat > $remote_dir/dna.json"
+
+    environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[",]//g')
 
     # generate solo.rb
     cat <<EOF |  $ssh_cmd "cat > $remote_dir/solo.rb"
@@ -153,6 +156,8 @@ data_bag_path             File.join(base, 'data_bags')
 encrypted_data_bag_secret File.join(base, 'data_bags/data_bag_key')
 environment_path          File.join(base, 'environments')
 ssl_verify_mode           :verify_peer
+
+environment               "$environment"
 
 cookbook_path []
 cookbook_path << File.join(base, 'site-cookbooks')
