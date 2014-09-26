@@ -25,8 +25,12 @@ Bash version 3.2 or later
 
 ## Installation
 
-TBD
-
+```shell
+curl -sO https://raw.githubusercontent.com/DQNEO/rsolo/master/rsolo
+chmod  0755 ./rsolo
+# if you would like to install globally
+sudo mv rsolo /usr/local/bin/
+```
 ## Motivation
 
 gem `knife-solo` is a great tool, but I don't want to care about ruby tools like gem, bunlder.
