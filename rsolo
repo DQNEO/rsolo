@@ -6,6 +6,7 @@ set -e
 
 PROG=$(basename $0)
 VERSION="0.0.1"
+rsync_verbose=""
 
 usage() {
     cat  <<EOF
