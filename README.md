@@ -86,3 +86,10 @@ GPL v3
 
 @DQNEO
 
+## TODO
+
+* option
+ * -o
+ * --format
+* help for subcommands
+
