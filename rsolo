@@ -143,10 +143,10 @@ cmd_cook() {
     set -x
     hostname=${param[0]}
     ssh_cmd="ssh $ssh_options $hostname"
+    jsonfile=nodes/${node_name}.json
 
     sync
 
-    jsonfile=nodes/${node_name}.json
     cat $jsonfile | $ssh_cmd "cat > $remote_dir/dna.json"
 
     environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[",]//g')
