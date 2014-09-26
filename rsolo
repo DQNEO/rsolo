@@ -209,7 +209,9 @@ cmd_prepare() {
     set -x
     _setup_ssh
 
-    $ssh_cmd "sudo echo install chef-solo"
+    # About the Omnibus Installer
+    # https://docs.getchef.com/install_omnibus.html
+    $ssh_cmd "curl -L https://www.getchef.com/chef/install.sh | sudo bash"
     _rm_ssh_tmpconfig
 }
 
