@@ -219,8 +219,6 @@ EOF
 }
 
 cmd_prepare() {
-    hostname=${param[0]}
-
     _setup_ssh
 
     # About the Omnibus Installer
