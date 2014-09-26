@@ -115,6 +115,7 @@ do
     esac
 done
 
+# show usage when no args
 if [ -z $param ]; then
     usage_cmd_${subcmd}
     exit 1
