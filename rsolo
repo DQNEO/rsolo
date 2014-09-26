@@ -6,12 +6,14 @@ set -e
 
 PROG=$(basename $0)
 VERSION="0.0.1"
+tmp_file="${TMPDIR}rsolovagrantsshconfig.$$"
+remote_dir='~/'${PROG}
+
+# options
 rsync_verbose=""
 why_run=""
 vagrant_mode=""
 override_runlist=""
-tmp_file="${TMPDIR}rsolovagrantsshconfig.$$"
-remote_dir='~/'${PROG}
 
 usage() {
     cat  <<EOF
