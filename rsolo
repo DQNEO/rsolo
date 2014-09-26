@@ -9,6 +9,13 @@ VERSION="0.0.1"
 usage() {
     cat  <<EOF
 Usage: $PROG SUBCOMMAND [OPTIONS] [ARGS]
+** $PROG subcommands **
+$PROG bootstrap [USER@]HOSTNAME [JSON] (options)
+$PROG prepare   [USER@]HOSTNAME [JSON] (options)
+$PROG cook      [USER@]HOSTNAME [JSON] (options)
+$PROG clean     [USER@]HOSTNAME
+$PROG init      DIRECTORY
+EOF
 EOF
 }
 
@@ -39,6 +46,7 @@ shift
 
 echo "subcmd = " $subcmd
 
+ssh_options=""
 
 for OPT in "$@"
 do
@@ -47,12 +55,28 @@ do
             usage_cmd_${subcmd}
             exit 1
             ;;
-        '-a'|'--long-a' )
+        '-F')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
-                echo "$PROGNAME: option requires an argument -- $1" 1>&2
+                echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
             fi
-            ARG_A="$2"
+            ssh_options="$ssh_options -F $2"
+            shift 2
+            ;;
+        '-i')
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            ssh_options="$ssh_options -i $2"
+            shift 2
+            ;;
+        '-p')
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            ssh_options="$ssh_options -p $2"
             shift 2
             ;;
         '-b'|'--long-b' )
