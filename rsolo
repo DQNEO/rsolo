@@ -221,8 +221,16 @@ cmd_prepare() {
 }
 
 sync() {
-    # rsync
-    rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
+
+    if $ssh_cmd "type rsync >/dev/null 2>&1" ; then
+        # rsync
+        rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
+    else
+        # scp
+        $ssh_cmd "rm -rf $remote_dir/"
+        scp -r $ssh_options . ${hostname}:${remote_dir}/
+    fi
+
 }
 
 clean() {
