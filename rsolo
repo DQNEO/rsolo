@@ -54,6 +54,7 @@ shift
 
 ssh_options=""
 
+# http://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb#2-2
 for OPT in "$@"
 do
     case "$OPT" in
