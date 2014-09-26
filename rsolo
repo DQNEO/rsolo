@@ -137,5 +137,4 @@ cmd_prepare() {
 
 cmd_${subcmd}
 
-#echo "ssh_options:" $ssh_options
 
