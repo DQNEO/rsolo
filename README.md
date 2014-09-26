@@ -25,6 +25,24 @@ rsolo prepare user@hostname
 rsolo cook user@hostname
 ```
 
+## Coordination with Vagrant
+
+If You has a node json file `nodes/vagrant.json`, you can just do
+
+```
+rsolo prepare --vagrant
+rsolo cook --vagrant
+```
+
+Or if you want to use other json file (e.g. nodes/foo.json )
+
+```
+rsolo prepare --vagrant -N foo
+rsolo cook --vagrant -N foo
+```
+
+
+
 ## rsolo VS. knife-solo
 
 knife-solo is a great tool, but it requires `ruby`, `gem`, and `knife`
