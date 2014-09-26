@@ -5,6 +5,7 @@
 set -e
 
 PROG=$(basename $0)
+VERSION="0.0.1"
 rsync_verbose=""
 
 usage () {
@@ -39,7 +40,6 @@ fi
 subcommand=$1
 shift
 ssh_options=""
-VERSION="0.0.1"
 
 # http://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb#2-2
 for OPT in "$@"
