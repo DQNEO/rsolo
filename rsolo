@@ -177,6 +177,9 @@ _rm_ssh_tmpconfig() {
 cmd_cook() {
 
     _setup_ssh
+    echo "Running Chef on ${hostname}..."
+
+    echo "Uploading the kitchen..."
 
     sync
 
@@ -184,6 +187,7 @@ cmd_cook() {
 
     environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[",]//g')
 
+    echo "Generating solo config..."
     # generate solo.rb
     cat <<EOF |  $ssh_cmd "cat > $remote_dir/solo.rb"
 
@@ -205,7 +209,11 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-    $ssh_cmd "sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
+
+    cmd_remote="sudo chef-solo $why_run -c $remote_dir/solo.rb -j $remote_dir/dna.json"
+    echo "Running Chef: $cmd_remote"
+
+    $ssh_cmd $cmd_remote
 
     _rm_ssh_tmpconfig
 }
