@@ -62,7 +62,7 @@ do
             usage_cmd_${subcmd}
             exit 1
             ;;
-        '-F' )
+        '-F')
             if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
                 echo "$PROG: option requires an argument -- $1" 1>&2
                 exit 1
