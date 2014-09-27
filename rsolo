@@ -265,7 +265,7 @@ sync() {
     else
         # scp
         cmd_clean
-        scp -r $ssh_options . ${hostname}:${remote_dir}/
+        scp -rq $ssh_options . ${hostname}:${remote_dir}/
     fi
 
 }
