@@ -42,7 +42,7 @@ $ berks vendor cookbooks
 
 This is a very unique feature.
 
-It creates a cookbook name `helloworld` , and do `prepare` + `cook` it automatically.
+It creates a cookbook name `helloworld` , and do `prepare` + `cook -o helloworld` it automatically.
 
 ## Coordination with Vagrant (experimental)
 
