@@ -33,7 +33,10 @@ version() {
 
 usage_cmd_prepare() {
     cat  <<EOF
-Usage: $PROG prepare [OPTIONS] [ARGS]
+Usage: $PROG prepare [OPTIONS] [USER@]HOSTNAME
+
+install Chef on the remote host
+
 EOF
 }
 
