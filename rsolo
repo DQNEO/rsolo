@@ -169,7 +169,9 @@ done
 
 _setup_ssh() {
     if [[ $vagrant_mode ]]; then
-        vagrant ssh-config --host=tmphost > $tmp_file
+        if [[ ! -e $tmp_file ]] ; then
+            vagrant ssh-config --host=tmphost > $tmp_file
+        fi
         hostname=tmphost
         ssh_options="-F $tmp_file"
         if [[ ! $node_name ]]; then
