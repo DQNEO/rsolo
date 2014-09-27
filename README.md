@@ -38,6 +38,12 @@ $ rm -rf cookbooks Berksfile.lock
 $ berks vendor cookbooks
 ```
 
+### rsolo helloworld
+
+This is a very unique feature.
+
+It creates a cookbook name `helloworld` , and do `prepare` + `cook` it automatically.
+
 ## Coordination with Vagrant (experimental)
 
 If You has a node json file `nodes/vagrant.json`, you can just do

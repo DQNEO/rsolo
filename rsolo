@@ -68,6 +68,15 @@ EOF
 #    -V, --verbose                    More verbose output. Use twice for max verbosity
 }
 
+usage_cmd_helloworld() {
+    cat  <<EOF
+Usage: $PROG helloworld [OPTIONS] [USER@]HOSTNAME
+
+create cookbook named "helloworld" and run it
+
+EOF
+}
+
 if [[ $# -eq 0 ]]; then
     usage
     exit 1
@@ -260,6 +269,25 @@ cmd_prepare() {
     fi
 
     _rm_ssh_tmpconfig
+}
+
+cmd_helloworld() {
+    mkdir -p cookbooks/helloworld/recipes
+    echo 'log "hello world"' > cookbooks/helloworld/recipes/default.rb
+
+    _setup_ssh
+
+    if [[ -e $jsonfile ]]; then
+        override_runlist="-o helloworld"
+    else
+        if [[ ! -d nodes ]] ; then
+            mkdir nodes
+        fi
+        echo '{"run_list":["helloworld"]}' > $jsonfile
+    fi
+
+    cmd_prepare
+    cmd_cook
 }
 
 sync() {
