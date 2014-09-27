@@ -187,14 +187,8 @@ _setup_ssh() {
         jsonfile=nodes/${node_name}.json
     fi
 
-    if [[ ! -e $jsonfile ]] ; then
-        echo "$jsonfile file not found" >&2
-        exit 1
-    fi
-
     ssh_cmd="ssh $ssh_options $hostname"
     ssh_cmd_t="ssh -t $ssh_options $hostname"
-
 }
 
 _rm_ssh_tmpconfig() {
@@ -204,6 +198,12 @@ _rm_ssh_tmpconfig() {
 cmd_cook() {
 
     _setup_ssh
+
+    if [[ ! -e $jsonfile ]] ; then
+        echo "$jsonfile file not found" >&2
+        exit 1
+    fi
+
     echo "Running Chef on ${hostname}..."
 
     echo "Uploading the kitchen..."
