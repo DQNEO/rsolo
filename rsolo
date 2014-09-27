@@ -246,9 +246,14 @@ EOF
 cmd_prepare() {
     _setup_ssh
 
-    # About the Omnibus Installer
-    # https://docs.getchef.com/install_omnibus.html
-    $ssh_cmd "curl -L https://www.getchef.com/chef/install.sh | sudo bash"
+    if  $ssh_cmd "type chef-solo >/dev/null 2>&1" ; then
+        echo "chef-solo is already installed on $hostname"
+    else
+        # About the Omnibus Installer
+        # https://docs.getchef.com/install_omnibus.html
+        $ssh_cmd "curl -L https://www.getchef.com/chef/install.sh | sudo bash"
+    fi
+
     _rm_ssh_tmpconfig
 }
 
