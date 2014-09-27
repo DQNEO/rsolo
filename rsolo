@@ -204,7 +204,9 @@ _setup_ssh() {
 }
 
 _rm_ssh_tmpconfig() {
-    [[ -e $tmp_file ]] && rm $tmp_file
+    if [[ -e $tmp_file ]]; then
+        rm $tmp_file
+    fi
 }
 
 cmd_cook() {
