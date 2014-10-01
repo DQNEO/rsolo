@@ -262,12 +262,12 @@ EOF
 cmd_prepare() {
     _setup_ssh
 
-    if  $ssh_cmd "type chef-solo >/dev/null 2>&1" ; then
+    if  $ssh_cmd_t "type chef-solo >/dev/null 2>&1" ; then
         echo "chef-solo is already installed on $hostname"
     else
         # About the Omnibus Installer
         # https://docs.getchef.com/install_omnibus.html
-        $ssh_cmd "curl -L https://www.getchef.com/chef/install.sh | sudo bash"
+        $ssh_cmd_t "curl -L https://www.getchef.com/chef/install.sh | sudo bash"
     fi
 
     _rm_ssh_tmpconfig
@@ -294,7 +294,7 @@ cmd_helloworld() {
 
 sync() {
 
-    if $ssh_cmd "type rsync >/dev/null 2>&1" ; then
+    if $ssh_cmd_t "type rsync >/dev/null 2>&1" ; then
         # rsync
         rsync -rL $rsync_verbose --rsh="$ssh_cmd" --delete-after --exclude=revision-deploys --exclude=tmp --exclude=.git --exclude=.hg --exclude=.svn --exclude=.bzr . :$remote_dir
     else
