@@ -285,7 +285,8 @@ cmd_helloworld() {
         if [[ ! -d nodes ]] ; then
             mkdir nodes
         fi
-        echo '{"run_list":["helloworld"]}' > $jsonfile
+
+        printf '{\n  "run_list":["helloworld"]\n}\n' > $jsonfile
     fi
 
     cmd_prepare
