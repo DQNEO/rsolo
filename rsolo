@@ -14,6 +14,7 @@ rsync_verbose=""
 why_run=""
 vagrant_mode=""
 override_runlist=""
+environment=""
 
 usage() {
     cat  <<EOF
@@ -51,6 +52,7 @@ Options:
     -W, --why-run                    Enable whyrun mode
     -o, --override-runlist RunlistItem,RunlistItem...,,
                                       Replace current run list with specified items
+    -E, --environment ENVIRONMENT    Set the Chef Environment on the node
 
     -i, --identity-file FILE         ssh identity file
     -F, --ssh-config-file FILE       ssh config file
@@ -62,7 +64,6 @@ Options:
 EOF
 
 # TODO
-#    -E, --environment ENVIRONMENT    The Chef environment for your node
 #        --format FORMAT              Which format to use for output
 #    -r, --run-list RUN_LIST          Comma separated list of roles/recipes to put to node config (if it does not exist)
 #    -V, --verbose                    More verbose output. Use twice for max verbosity
@@ -142,6 +143,14 @@ do
                 exit 1
             fi
             node_name=$2
+            shift 2
+            ;;
+        '-E'|'--environment')
+            if [[ -z "$2" ]] || [[ "$2" =~ ^-+ ]]; then
+                echo "$PROG: option requires an argument -- $1" 1>&2
+                exit 1
+            fi
+            environment="-E $2"
             shift 2
             ;;
         '-o'|'--override-runlist')
@@ -226,7 +235,7 @@ cmd_cook() {
 
     cat $jsonfile | $ssh_cmd "cat > $remote_dir/dna.json"
 
-    environment=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[", ]//g')
+    environment_in_json=$(grep environment $jsonfile | awk -F: '{print $2}' | sed -e 's/[", ]//g')
 
     echo "Generating solo config..."
     # generate solo.rb
@@ -242,7 +251,7 @@ encrypted_data_bag_secret File.join(base, 'data_bags/data_bag_key')
 environment_path          File.join(base, 'environments')
 ssl_verify_mode           :verify_peer
 
-environment               "$environment"
+environment               "$environment_in_json"
 
 cookbook_path []
 cookbook_path << File.join(base, 'site-cookbooks')
@@ -250,7 +259,7 @@ cookbook_path << File.join(base, 'cookbooks')
 
 EOF
 
-    options="$why_run $override_runlist"
+    options="$why_run $override_runlist $environment"
     cmd_remote="sudo chef-solo -c $remote_dir/solo.rb -j $remote_dir/dna.json $options"
     echo "Running Chef: $cmd_remote"
 
