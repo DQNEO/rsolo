@@ -326,15 +326,18 @@ cmd_clean() {
 
 cmd_revendor() {
 
-    # TODO
-    # Do we have to care about "bundle exec berks" ?
-    if ! type berks 1>/dev/null 2>&1 ; then
+    local BERKS=""
+    if type chef exec berks 1>/dev/null 2>&1 ; then
+        BERKS="chef exec berks"
+    elif type berks 1>/dev/null 2>&1 ; then
+        BERKS="berks"
+    else
         echo "Berkshelf is not installed" >&2
         exit 1
     fi
 
     rm -rf cookbooks Berksfile.lock
-    berks vendor cookbooks
+    $BERKS vendor cookbooks
 }
 
 # show usage when no args
